@@ -181,11 +181,6 @@ const AppRoutes = () => {
           element={<TeacherSchedule />}
         />
 
-        <Route
-          path="timetable/classroom-allocation"
-          element={<ClassroomAllocation />}
-        />
-
 
         {/* Announcements */}
 
