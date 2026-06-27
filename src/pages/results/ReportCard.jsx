@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { students, subjects, marks } from '../../mockdata/students';
 
 export default function ReportCard() {
   const allStudents = [
