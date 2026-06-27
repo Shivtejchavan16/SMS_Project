@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 
 // Layouts
-import PublicLayout from "../layouts/PublicLayout";
-import AuthLayout from "../layouts/AuthLayout";
-import AdminLayout from "../layouts/AdminLayout";
+import PublicLayout from "../layout/PublicLayout";
+import AuthLayout from "../layout/AuthLayout";
+import AdminLayout from "../layout/AdminLayout";
 
 // Public Pages
 import Home from "../pages/public/Home";
@@ -49,15 +49,15 @@ import ReportCard from "../pages/results/ReportCard";
 // Timetable
 import WeeklyTimetable from "../pages/timetable/WeeklyTimetable";
 import TeacherSchedule from "../pages/timetable/TeacherSchedule";
-import ClassroomAllocation from "../pages/timetable/ClassroomAllocation";
+
 
 // Announcements
-import CreateNotice from "../pages/announcements/CreateNotice";
-import NoticeList from "../pages/announcements/NoticeList";
+import CreateNotice from "../pages/announcement/CreateNotice";
+import NoticeList from "../pages/announcement/NoticeList";
 
 // Settings
-import Settings from "../pages/settings/Settings";
-import Profile from "../pages/settings/Profile";
+import Settings from "../pages/setting/Setting";
+import Profile from "../pages/setting/Profile";
 
 // Not Found
 import NotFound from "../pages/not-found/NotFound";
