@@ -1,11 +1,13 @@
 import React from 'react'
+import Button from "../../components/ui/Button";
 
-const dashboard = () => {
+const Dashboard = () => {
   return (
     <div>
-      Dashboard
+      <h1>Dashboard</h1>
+
     </div>
   )
 }
 
-export default dashboard
+export default Dashboard;
