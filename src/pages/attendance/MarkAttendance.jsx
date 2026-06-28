@@ -1,11 +1,73 @@
-import React from 'react'
+import React from "react";
+import { attendanceData } from "../../mockdata/attendance";
 
 const MarkAttendance = () => {
   return (
-    <div>
-      Mark Attendance
-    </div>
-  )
-}
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-6">
+        Mark Attendance
+      </h1>
 
-export default MarkAttendance
+      {/* Filters */}
+      <div className="flex gap-4 mb-6">
+        <input
+          type="date"
+          className="border border-gray-300 rounded-md px-3 py-2"
+        />
+
+        <select className="border border-gray-300 rounded-md px-3 py-2">
+          <option>Select Department</option>
+          <option>B.Tech CSE</option>
+          <option>B.Tech IT</option>
+          <option>BCA</option>
+        </select>
+      </div>
+
+      {/* Attendance Table */}
+      <table className="w-full border border-gray-300">
+        <thead className="bg-gray-200">
+          <tr>
+            <th className="border p-2">Roll No</th>
+            <th className="border p-2">Student Name</th>
+            <th className="border p-2">Present</th>
+            <th className="border p-2">Absent</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {attendanceData.map((student) => (
+            <tr key={student.id}>
+              <td className="border p-2 text-center">
+                {student.rollNo}
+              </td>
+
+              <td className="border p-2">
+                {student.name}
+              </td>
+
+              <td className="border p-2 text-center">
+                <input
+                  type="radio"
+                  name={`attendance-${student.id}`}
+                />
+              </td>
+
+              <td className="border p-2 text-center">
+                <input
+                  type="radio"
+                  name={`attendance-${student.id}`}
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <button className="mt-6 bg-blue-600 text-white px-5 py-2 rounded">
+        Save Attendance
+      </button>
+    </div>
+  );
+};
+
+export default MarkAttendance;

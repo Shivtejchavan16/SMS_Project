@@ -8,4 +8,4 @@ const EditStudent = () => {
   )
 }
 
-export default EditStudent
+export default EditStudent;
