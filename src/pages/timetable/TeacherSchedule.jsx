@@ -1,4 +1,5 @@
 import React from "react";
+import { teacherSchedule } from "../../mockdata/timetable";
 
 const TeacherSchedule = () => {
   return (
@@ -7,7 +8,6 @@ const TeacherSchedule = () => {
         Teacher Schedule
       </h1>
 
-      {/* Filters */}
       <div className="flex gap-4 mb-6">
         <select className="border border-gray-300 rounded-md px-3 py-2">
           <option>Select Teacher</option>
@@ -34,26 +34,14 @@ const TeacherSchedule = () => {
         </thead>
 
         <tbody>
-          <tr>
-            <td className="border p-2">Monday</td>
-            <td className="border p-2">9:00 - 10:00</td>
-            <td className="border p-2">Java</td>
-            <td className="border p-2">B.Tech CSE</td>
-          </tr>
-
-          <tr>
-            <td className="border p-2">Wednesday</td>
-            <td className="border p-2">10:00 - 11:00</td>
-            <td className="border p-2">DBMS</td>
-            <td className="border p-2">B.Tech IT</td>
-          </tr>
-
-          <tr>
-            <td className="border p-2">Friday</td>
-            <td className="border p-2">2:00 - 3:00</td>
-            <td className="border p-2">React</td>
-            <td className="border p-2">BCA</td>
-          </tr>
+          {teacherSchedule.map((item) => (
+            <tr key={item.id}>
+              <td className="border p-2">{item.day}</td>
+              <td className="border p-2">{item.time}</td>
+              <td className="border p-2">{item.subject}</td>
+              <td className="border p-2">{item.className}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

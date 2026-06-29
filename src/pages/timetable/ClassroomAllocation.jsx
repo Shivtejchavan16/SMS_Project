@@ -1,4 +1,5 @@
 import React from "react";
+import { classroomAllocation } from "../../mockdata/timetable";
 
 const ClassroomAllocation = () => {
   return (
@@ -19,29 +20,15 @@ const ClassroomAllocation = () => {
         </thead>
 
         <tbody>
-          <tr>
-            <td className="border p-2">A-101</td>
-            <td className="border p-2">B.Tech CSE</td>
-            <td className="border p-2">Java</td>
-            <td className="border p-2">Mr. Patil</td>
-            <td className="border p-2">9:00 - 10:00</td>
-          </tr>
-
-          <tr>
-            <td className="border p-2">B-202</td>
-            <td className="border p-2">B.Tech IT</td>
-            <td className="border p-2">DBMS</td>
-            <td className="border p-2">Mrs. Sharma</td>
-            <td className="border p-2">10:00 - 11:00</td>
-          </tr>
-
-          <tr>
-            <td className="border p-2">C-303</td>
-            <td className="border p-2">BCA</td>
-            <td className="border p-2">React</td>
-            <td className="border p-2">Mr. Joshi</td>
-            <td className="border p-2">2:00 - 3:00</td>
-          </tr>
+          {classroomAllocation.map((item) => (
+            <tr key={item.id}>
+              <td className="border p-2">{item.room}</td>
+              <td className="border p-2">{item.department}</td>
+              <td className="border p-2">{item.subject}</td>
+              <td className="border p-2">{item.teacher}</td>
+              <td className="border p-2">{item.time}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

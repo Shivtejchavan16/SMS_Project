@@ -20,3 +20,33 @@ export const attendanceData = [
     name: "Sneha Joshi",
   },
 ];
+
+export const attendanceHistory = [
+  {
+    id: 1,
+    date: "27-06-2026",
+    className: "B.Tech CSE",
+    present: 48,
+    absent: 2,
+  },
+  {
+    id: 2,
+    date: "28-06-2026",
+    className: "B.Tech CSE",
+    present: 47,
+    absent: 3,
+  },
+];
+
+export const attendanceReports = [
+  {
+    id: 1,
+    student: "Rahul Sharma",
+    attendance: "95%",
+  },
+  {
+    id: 2,
+    student: "Priya Patil",
+    attendance: "92%",
+  },
+];
