@@ -5,18 +5,28 @@ import courses from "../../mockdata/courses";
 const CourseList = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const [departmentFilter, setDepartmentFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
 
-  const filteredCourses = courses.filter((course) =>
-    [
-      course.courseName,
-      course.courseCode,
-      course.department,
-      course.assignedTeacher,
-    ]
-      .join(" ")
-      .toLowerCase()
-      .includes(search.toLowerCase())
-  );
+  const filteredCourses = courses.filter((course) => {
+  const matchesSearch = [
+    course.courseName,
+    course.courseCode,
+    course.department,
+    course.assignedTeacher,
+  ]
+    .join(" ")
+    .toLowerCase()
+    .includes(search.toLowerCase());
+
+  const matchesDepartment =
+    departmentFilter === "" || course.department === departmentFilter;
+
+  const matchesStatus =
+    statusFilter === "" || course.status === statusFilter;
+
+  return matchesSearch && matchesDepartment && matchesStatus;
+});
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -40,16 +50,45 @@ const CourseList = () => {
         </button>
       </div>
 
-      {/* Search */}
       <div className="bg-white rounded-xl shadow p-5 mb-8">
-        <input
-          type="text"
-          placeholder="Search by course name, code, department or teacher..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
-        />
-      </div>
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+    {/* Search */}
+    <input
+      type="text"
+      placeholder="Search by course name, code, department or teacher..."
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+    />
+
+    {/* Department Filter */}
+    <select
+      value={departmentFilter}
+      onChange={(e) => setDepartmentFilter(e.target.value)}
+      className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+    >
+      <option value="">All Departments</option>
+      <option value="Computer Science">Computer Science</option>
+      <option value="Information Technology">Information Technology</option>
+      <option value="Mechanical">Mechanical</option>
+      <option value="Electronics">Electronics</option>
+      <option value="Civil">Civil</option>
+    </select>
+
+    {/* Status Filter */}
+    <select
+      value={statusFilter}
+      onChange={(e) => setStatusFilter(e.target.value)}
+      className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+    >
+      <option value="">All Status</option>
+      <option value="Active">Active</option>
+      <option value="Inactive">Inactive</option>
+    </select>
+
+  </div>
+</div>
 
       {/* Course Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -134,7 +173,7 @@ const CourseList = () => {
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    navigate(`/courses/details/${course.id}`);
+                    navigate(`/courses/${course.id}`);
                   }}
                   className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition"
                 >

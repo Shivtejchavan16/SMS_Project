@@ -1,18 +1,22 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AddCourse = () => {
-  const [course, setCourse] = useState({
-    courseName: "",
-    courseCode: "",
-    duration: "",
-    department: "",
-    assignedTeacher: "",
-    totalSeats: "",
-    startDate: "",
-    endDate: "",
-    description: "",
-    status: "Active",
-  });
+  const navigate = useNavigate();
+  const initialCourse = {
+  courseName: "",
+  courseCode: "",
+  duration: "",
+  department: "",
+  assignedTeacher: "",
+  totalSeats: "",
+  startDate: "",
+  endDate: "",
+  description: "",
+  status: "Active",
+};
+
+const [course, setCourse] = useState(initialCourse);
 
   const handleChange = (e) => {
     setCourse({
@@ -21,12 +25,23 @@ const AddCourse = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(course);
-  };
+  const handleCancel = () => {
+  setCourse(initialCourse);
+  navigate("/courses");
+};
+  
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-  return (
+  console.log("Course Saved:", course);
+
+  alert("Course added successfully!");
+  navigate("/courses");
+  // Reset the form after saving
+  setCourse(initialCourse);
+};
+  
+return (
     <div className="min-h-screen bg-gray-100 p-6">
 
       {/* Header */}
@@ -57,6 +72,7 @@ const AddCourse = () => {
               name="courseName"
               value={course.courseName}
               onChange={handleChange}
+              required
               placeholder="Enter Course Name"
               className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
             />
@@ -72,6 +88,7 @@ const AddCourse = () => {
               name="courseCode"
               value={course.courseCode}
               onChange={handleChange}
+              required
               placeholder="Enter Course Code"
               className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
             />
@@ -87,6 +104,7 @@ const AddCourse = () => {
               name="duration"
               value={course.duration}
               onChange={handleChange}
+              required
               placeholder="Example: 6 Months"
               className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
             />
@@ -102,6 +120,7 @@ const AddCourse = () => {
               name="department"
               value={course.department}
               onChange={handleChange}
+              required
               className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
             >
               <option value="">Select Department</option>
@@ -124,6 +143,7 @@ const AddCourse = () => {
     name="assignedTeacher"
     value={course.assignedTeacher}
     onChange={handleChange}
+    required
     placeholder="Enter Teacher Name"
     className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
   />
@@ -138,6 +158,7 @@ const AddCourse = () => {
               name="totalSeats"
               value={course.totalSeats}
               onChange={handleChange}
+              required
               placeholder="Enter Seats"
               className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
             />
@@ -154,6 +175,7 @@ const AddCourse = () => {
               name="startDate"
               value={course.startDate}
               onChange={handleChange}
+              required
               className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
@@ -169,6 +191,7 @@ const AddCourse = () => {
               name="endDate"
               value={course.endDate}
               onChange={handleChange}
+              required
               className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
@@ -183,6 +206,7 @@ const AddCourse = () => {
               name="status"
               value={course.status}
               onChange={handleChange}
+              required
               className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
             >
               <option>Active</option>
@@ -201,6 +225,7 @@ const AddCourse = () => {
               name="description"
               value={course.description}
               onChange={handleChange}
+              required
               placeholder="Write course description..."
               className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none resize-none"
             ></textarea>
@@ -210,11 +235,12 @@ const AddCourse = () => {
           <div className="md:col-span-2 flex justify-end gap-4 pt-4">
 
             <button
-              type="reset"
-              className="px-6 py-3 rounded-lg border border-gray-300 hover:bg-gray-100 transition"
-            >
-              Cancel
-            </button>
+  type="button"
+  onClick={handleCancel}
+  className="px-6 py-3 rounded-lg border border-gray-300 hover:bg-gray-100 transition"
+>
+  Cancel
+</button>
 
             <button
               type="submit"

@@ -1,81 +1,76 @@
+import { useParams,useNavigate } from "react-router-dom";
+import teachersData from "../../mockdata/teachers";
 
-import {teacher} from "../../mockdata/teachers";
-
-// Reusable Info Component
-const Info = ({ label, value }) => (
-  <div>
-    <p className="text-gray-500 font-medium">{label}</p>
-    <p className="mt-1 text-gray-800">{value}</p>
-  </div>
-);
 
 const TeacherProfile = () => {
-  const profile = teacher[0];
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const teacher = teachersData.find(
+    (t) => t.id === Number(id)
+  );
+
+  if (!teacher) {
+    return <h2 className="text-center mt-10">Teacher Not Found</h2>;
+  }
+
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-5xl mx-auto">
+    <div className="min-h-screen bg-gray-100 p-8">
+      <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8">
 
-        {/* Back Button */}
-        <div className="flex justify-between items-center mb-6">
-          <button
-            onClick={() => window.history.back()}
-            className="px-4 py-2 bg-white border rounded-lg shadow hover:bg-gray-50"
-          >
-            ← Back
-          </button>
-          <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-    Edit Profile
-  </button>
-        </div>
+  {/* Back Button */}
+  <div className="mb-6">
+    <button
+      onClick={() => navigate(-1)}
+      className="inline-flex items-center gap-2 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition"
+    >
+      ← Back
+    </button>
+  </div>
 
-        {/* Profile Card */}
-        <div className="bg-white rounded-2xl shadow-lg p-8">
+  {/* Profile Section */}
+  <div className="flex flex-col items-center">
+    <img
+      src={teacher.image}
+      
+      className="w-32 h-32 rounded-full border-4 border-blue-500 object-cover"
+    />
 
-          {/* Header */}
-          <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+    <h2 className="text-3xl font-bold mt-4">
+      {teacher.name}
+    </h2>
 
-            <img
-              src={profile.image}
-              
-              className="w-36 h-36 rounded-full object-cover border-4 border-blue-500"
-            />
+    <p className="text-gray-500">
+      {teacher.department}
+    </p>
+  </div>
 
-            <div className="flex-1">
-              <div className="flex flex-wrap items-center gap-3">
-                <h1 className="text-4xl font-bold text-gray-800">
-                  {profile.name}
-                </h1>
+        <div className="grid grid-cols-2 gap-6 mt-10">
 
-                <span className="px-4 py-1 rounded-full bg-blue-100 text-blue-700 font-medium">
-                  Teacher
-                </span>
-              </div>
-
-              <p className="text-gray-500 mt-2">
-                {profile.teacherId} | {profile.department}
-              </p>
-            </div>
-
+          <div>
+            <h4 className="font-semibold">Teacher ID</h4>
+            <p>{teacher.teacherId}</p>
           </div>
 
-          {/* Profile Information */}
-          <div className="mt-10 border rounded-xl p-6">
-            <h2 className="text-2xl font-semibold mb-6">
-              Profile Information
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12">
-              <Info label="Email" value={profile.email} />
-              <Info label="Phone" value={profile.phone} />
-              <Info label="Address" value={profile.address} />
-              <Info label="Qualification" value={profile.qualification} />
-              <Info label="Experience" value={profile.experience} />
-              <Info label="Subject" value={profile.subject} />
-              <Info label="Date of Joining" value={profile.joiningDate} />
-              <Info label="About" value={profile.about} />
-            </div>
+          <div>
+            <h4 className="font-semibold">Subject</h4>
+            <p>{teacher.subject}</p>
           </div>
 
+          <div>
+            <h4 className="font-semibold">Email</h4>
+            <p>{teacher.email}</p>
+          </div>
+
+          <div>
+            <h4 className="font-semibold">Phone</h4>
+            <p>{teacher.phone}</p>
+          </div>
+
+          <div>
+            <h4 className="font-semibold">Address</h4>
+            <p>{teacher.address}</p>
+          </div>
         </div>
       </div>
     </div>
