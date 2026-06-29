@@ -6,23 +6,19 @@ const AttendanceReports = () => {
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-6">Attendance Reports</h1>
 
-      <table className="w-full border border-gray-300">
-        <thead className="bg-gray-200">
-          <tr>
-            <th className="border p-2">Student Name</th>
-            <th className="border p-2">Attendance %</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {attendanceReports.map((item) => (
-            <tr key={item.id}>
-              <td className="border p-2">{item.student}</td>
-              <td className="border p-2">{item.attendance}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="grid grid-cols-2 gap-4">
+        {attendanceReports.map((item) => (
+          <div
+            key={item.id}
+            className="p-4 rounded shadow bg-gray-50"
+          >
+            <h2 className="font-bold">{item.student}</h2>
+            <p className="text-blue-600 font-semibold">
+              {item.attendance}
+            </p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

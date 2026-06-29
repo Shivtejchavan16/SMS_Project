@@ -3,21 +3,25 @@ export const attendanceData = [
     id: 1,
     rollNo: "101",
     name: "Rahul Sharma",
+    status: "Present"
   },
   {
     id: 2,
     rollNo: "102",
     name: "Priya Patil",
+    status: "Absent"
   },
   {
     id: 3,
     rollNo: "103",
     name: "Amit Kumar",
+    status: "Present"
   },
   {
     id: 4,
     rollNo: "104",
     name: "Sneha Joshi",
+    status: "Absent"
   },
 ];
 

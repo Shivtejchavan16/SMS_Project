@@ -6,7 +6,7 @@ const AttendanceHistory = () => {
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-6">Attendance History</h1>
 
-      <table className="w-full border border-gray-300">
+      <table className="w-full border">
         <thead className="bg-gray-200">
           <tr>
             <th className="border p-2">Date</th>
@@ -18,11 +18,15 @@ const AttendanceHistory = () => {
 
         <tbody>
           {attendanceHistory.map((item) => (
-            <tr key={item.id}>
+            <tr key={item.id} className="text-center hover:bg-gray-100">
               <td className="border p-2">{item.date}</td>
               <td className="border p-2">{item.className}</td>
-              <td className="border p-2">{item.present}</td>
-              <td className="border p-2">{item.absent}</td>
+              <td className="border p-2 text-green-600 font-bold">
+                {item.present}
+              </td>
+              <td className="border p-2 text-red-600 font-bold">
+                {item.absent}
+              </td>
             </tr>
           ))}
         </tbody>
