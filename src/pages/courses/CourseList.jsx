@@ -1,6 +1,4 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import courses from "../../mockdata/courses";
+import React from 'react'
 
 const CourseList = () => {
   const navigate = useNavigate();
@@ -201,7 +199,7 @@ const CourseList = () => {
       </div>
 
     </div>
-  );
-};
+  )
+}
 
-export default CourseList;
+export default CourseList

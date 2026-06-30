@@ -205,4 +205,4 @@ const Input = ({
   </div>
 );
 
-export default EditTeacher;
+export default EditTeacher

@@ -119,7 +119,7 @@ const TeacherList = () => {
         </table>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TeacherList;
+export default TeacherList

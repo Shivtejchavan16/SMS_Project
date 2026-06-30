@@ -74,7 +74,7 @@ const TeacherProfile = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TeacherProfile;
+export default TeacherProfile

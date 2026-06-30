@@ -256,7 +256,7 @@ return (
       </div>
 
     </div>
-  );
-};
+  )
+}
 
-export default AddCourse;
+export default AddCourse

@@ -243,4 +243,4 @@ const Input = ({
   
 
 
-export default AddTeacher;
+export default AddTeacher
