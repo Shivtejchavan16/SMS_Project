@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import teachersData from "../../mockdata/teachers";
 
 const TeacherList = () => {
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
   const filteredTeachers = teachersData.filter((teacher) =>
     [teacher.name, teacher.teacherId, teacher.department, teacher.subject]
@@ -22,7 +24,8 @@ const TeacherList = () => {
           </p>
         </div>
 
-        <button className="mt-4 md:mt-0 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg font-medium shadow">
+        <button className="mt-4 md:mt-0 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg font-medium shadow"
+         onClick={() => navigate("/teachers/add")}>
           + Add Teacher
         </button>
       </div>
@@ -49,7 +52,7 @@ const TeacherList = () => {
               <th className="px-5 py-4 text-left">Subject</th>
               <th className="px-5 py-4 text-left">Email</th>
               <th className="px-5 py-4 text-left">Phone</th>
-              <th className="px-5 py-4 text-center">Status</th>
+              
               <th className="px-5 py-4 text-center">Actions</th>
             </tr>
           </thead>
@@ -61,32 +64,37 @@ const TeacherList = () => {
                   key={teacher.id}
                   className="border-t hover:bg-gray-50 transition"
                 >
-                  <td className="px-5 py-4 font-medium">{teacher.name}</td>
+                  <td className="px-5 py-4">
+  <div className="flex flex-col items-center">
+    <img
+      src={teacher.image}
+      alt={teacher.name}
+      className="w-14 h-14 rounded-full object-cover cursor-pointer border-2 border-blue-500 hover:scale-105 transition"
+      onClick={() =>
+        navigate(`/teachers/${teacher.id}`)
+      }
+    />
+
+    <p className="mt-2 font-medium text-gray-800">
+      {teacher.name}
+    </p>
+  </div>
+</td>
                   <td className="px-5 py-4">{teacher.teacherId}</td>
                   <td className="px-5 py-4">{teacher.department}</td>
                   <td className="px-5 py-4">{teacher.subject}</td>
                   <td className="px-5 py-4">{teacher.email}</td>
                   <td className="px-5 py-4">{teacher.phone}</td>
 
-                  <td className="px-5 py-4 text-center">
-                    <span
-                      className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                        teacher.status === "Active"
-                          ? "bg-green-100 text-green-700"
-                          : "bg-red-100 text-red-700"
-                      }`}
-                    >
-                      {teacher.status}
-                    </span>
-                  </td>
+                  
 
                   <td className="px-5 py-4">
                     <div className="flex justify-center gap-2">
-                      <button className="bg-blue-100 hover:bg-blue-200 text-blue-600 px-3 py-1 rounded">
-                        View
-                      </button>
+                      
 
-                      <button className="bg-yellow-100 hover:bg-yellow-200 text-yellow-700 px-3 py-1 rounded">
+                      <button className="bg-yellow-100 hover:bg-yellow-200 text-yellow-700 px-3 py-1 rounded"
+                      onClick={() =>
+                               navigate(`/teachers/edit/${teacher.id}`)}>
                         Edit
                       </button>
 
@@ -111,7 +119,7 @@ const TeacherList = () => {
         </table>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TeacherList;
+export default TeacherList

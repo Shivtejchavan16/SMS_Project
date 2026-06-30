@@ -1,229 +1,179 @@
 import { useState } from "react";
-import {teacherDetails} from "../../mockdata/teachers";
+import { useParams, useNavigate } from "react-router-dom";
+import teachersData from "../../mockdata/teachers";
 
 const EditTeacher = () => {
-  const [teacher, setTeacher] = useState(teacherDetails);
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setTeacher({
-      ...teacher,
-      [e.target.name]: e.target.value,
-    });
+const selectedTeacher = teachersData.find(
+  (teacher) => teacher.id === Number(id)
+);
+
+const [teacher, setTeacher] = useState({...selectedTeacher});
+
+const handleChange = (e) =>{
+  setTeacher({...teacher,
+    [e.target.name]:e.target.value,
+  });
+};
+
+  const handleCancel = () => {
+    setTeacher({...selectedTeacher});
+    navigate("/teachers");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Updated Teacher:", teacher);
+    alert("teacher updated successfully!");
+    navigate("/teachers");
   };
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-gray-100 p-4">
 
-      {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-800">
+      
+
+      {/* Form Card */}
+      <div className="bg-white rounded-2xl shadow-lg p-5">
+
+        <form onSubmit={handleSubmit}>
+
+  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+    {/* Left Side */}
+    <div className="bg-gray-50 rounded-xl p-6 flex flex-col items-center h-fit">
+<h1 className="text-3xl font-bold text-gray-800">
           Edit Teacher
         </h1>
         <p className="text-gray-500 mt-1">
           Update teacher information 
         </p>
+      <br/>
+      <br/>
+      <img
+        src={teacher.image}
+        alt={teacher.name}
+        className="w-32 h-32 rounded-full object-cover border-2 border-blue-500"
+      />
+
+      <label
+        htmlFor="teacherImage"
+        className="mt-4 w-full text-center bg-blue-600 text-white py-2 rounded-lg cursor-pointer hover:bg-blue-700"
+      >
+        Change Photo
+      </label>
+
+      <input
+        id="teacherImage"
+        type="file"
+        accept="image/*"
+        hidden
+        onChange={(e) => {
+          const file = e.target.files[0];
+
+          if (file) {
+            setTeacher({
+              ...teacher,
+              image: URL.createObjectURL(file),
+            });
+          }
+        }}
+      />
+
+      
+
+    </div>
+
+    {/* Right Side */}
+    <div className="lg:col-span-2 bg-white">
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+        <Input
+          label="Name"
+          name="name"
+          value={teacher.name}
+          onChange={handleChange}
+        />
+
+        <Input
+          label="Teacher ID"
+          name="teacherId"
+          value={teacher.teacherId}
+          onChange={handleChange}
+        />
+
+        <Input
+          label="Email"
+          type="email"
+          name="email"
+          value={teacher.email}
+          onChange={handleChange}
+        />
+
+        <Input
+          label="Phone"
+          name="phone"
+          value={teacher.phone}
+          onChange={handleChange}
+        />
+
+        <Input
+          label="Department"
+          name="department"
+          value={teacher.department}
+          onChange={handleChange}
+        />
+
+        <Input
+          label="Subject"
+          name="subject"
+          value={teacher.subject}
+          onChange={handleChange}
+        />
+
       </div>
 
-      {/* Form Card */}
-      <div className="bg-white rounded-2xl shadow-lg p-8">
+      <div className="mt-6">
+        <label className="block mb-2 font-medium">
+          Address
+        </label>
 
-        <form onSubmit={handleSubmit}>
+        <textarea
+          rows="2"
+          name="address"
+          value={teacher.address}
+          onChange={handleChange}
+          required
+          className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+        />
+      </div>
 
-          {/* Profile */}
-          <div className="flex flex-col items-center mb-10">
+      <div className="flex justify-end gap-4 mt-8">
 
-            <div className="w-28 h-28 rounded-full bg-blue-100 border-4 border-blue-500 flex items-center justify-center text-4xl">
-              👤
-            </div>
+        <button
+          type="button"
+          onClick={handleCancel}
+          className="px-6 py-2 border rounded-lg hover:bg-gray-100"
+        >
+          Cancel
+        </button>
 
-            <button
-              type="button"
-              className="mt-4 px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-            >
-              Upload Photo
-            </button>
+        <button
+          type="submit"
+          className="px-8 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+        >
+          Save Changes
+        </button>
 
-          </div>
+      </div>
 
-          {/* Personal Information */}
-          <h2 className="text-xl font-semibold text-gray-700 border-b pb-2 mb-6">
-            Personal Information
-          </h2>
+    </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+  </div>
 
-            <Input
-              label="First Name"
-              name="firstName"
-              value={teacher.firstName}
-              onChange={handleChange}
-            />
-
-            <Input
-              label="Last Name"
-              name="lastName"
-              value={teacher.lastName}
-              onChange={handleChange}
-            />
-
-            <Input
-              label="Teacher ID"
-              name="teacherId"
-              value={teacher.teacherId}
-              onChange={handleChange}
-            />
-
-            <div>
-              <label className="block mb-2 font-medium">
-                Gender
-              </label>
-
-              <select
-                name="gender"
-                value={teacher.gender}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
-              >
-                <option value="">Select Gender</option>
-                <option>Male</option>
-                <option>Female</option>
-                <option>Other</option>
-              </select>
-            </div>
-
-          </div>
-
-          {/* Contact */}
-          <h2 className="text-xl font-semibold text-gray-700 border-b pb-2 mt-10 mb-6">
-            Contact Information
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-            <Input
-              label="Email"
-              type="email"
-              name="email"
-              value={teacher.email}
-              onChange={handleChange}
-            />
-
-            <Input
-              label="Phone Number"
-              name="phone"
-              value={teacher.phone}
-              onChange={handleChange}
-            />
-
-          </div>
-
-          {/* Professional */}
-          <h2 className="text-xl font-semibold text-gray-700 border-b pb-2 mt-10 mb-6">
-            Professional Information
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-            <Input
-              label="Department"
-              name="department"
-              value={teacher.department}
-              onChange={handleChange}
-            />
-
-            <Input
-              label="Subject"
-              name="subject"
-              value={teacher.subject}
-              onChange={handleChange}
-            />
-
-            <Input
-              label="Qualification"
-              name="qualification"
-              value={teacher.qualification}
-              onChange={handleChange}
-            />
-
-            <Input
-              label="Experience"
-              name="experience"
-              placeholder="e.g. 5 Years"
-              value={teacher.experience}
-              onChange={handleChange}
-            />
-
-            <div>
-              <label className="block mb-2 font-medium">
-                Joining Date
-              </label>
-
-              <input
-                type="date"
-                name="joiningDate"
-                value={teacher.joiningDate}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
-              />
-            </div>
-
-            <div>
-              <label className="block mb-2 font-medium">
-                Status
-              </label>
-
-              <select
-                name="status"
-                value={teacher.status}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
-              >
-                <option>Active</option>
-                <option>Inactive</option>
-              </select>
-            </div>
-
-          </div>
-
-          {/* Address */}
-          <h2 className="text-xl font-semibold text-gray-700 border-b pb-2 mt-10 mb-6">
-            Address
-          </h2>
-
-          <textarea
-            rows="4"
-            name="address"
-            value={teacher.address}
-            onChange={handleChange}
-            placeholder="Enter Address"
-            className="w-full border rounded-lg px-4 py-3 resize-none focus:ring-2 focus:ring-blue-500 outline-none"
-          />
-
-          {/* Buttons */}
-          <div className="flex justify-end gap-4 mt-10">
-
-            <button
-              type="reset"
-              className="px-6 py-3 border rounded-lg hover:bg-gray-100"
-            >
-              Cancel
-            </button>
-
-            <button
-              type="submit"
-              className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold shadow"
-            >
-              Update Teacher
-            </button>
-
-          </div>
-
-        </form>
-
+</form>
       </div>
     </div>
   );
@@ -236,6 +186,7 @@ const Input = ({
   value,
   onChange,
   placeholder,
+  required = true,
 }) => (
   <div>
     <label className="block mb-2 font-medium">
@@ -248,9 +199,10 @@ const Input = ({
       value={value}
       onChange={onChange}
       placeholder={placeholder ||` Enter ${label}`}
+      required={required}
       className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
     />
   </div>
 );
 
-export default EditTeacher;
+export default EditTeacher

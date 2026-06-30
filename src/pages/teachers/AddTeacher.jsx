@@ -1,22 +1,27 @@
-import { useState } from "react";
+import { useState,useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AddTeacher = () => {
-  const [teacher, setTeacher] = useState({
-    firstName: "",
-    lastName: "",
+  const navigate =useNavigate();
+  const initialTeacher = {
+    Name: "",
     teacherId: "",
     email: "",
     phone: "",
-    gender: "",
     department: "",
     subject: "",
-    qualification: "",
-    experience: "",
-    joiningDate: "",
     address: "",
-    status: "Active",
-  });
-
+    
+  };
+  const [teacher, setTeacher] = useState(initialTeacher);
+const fileInputRef = useRef(null);
+const handleCancel = () => {
+  setTeacher(initialTeacher);
+  navigate("/teachers");
+  if (fileInputRef.current) {
+    fileInputRef.current.value = "";
+  }
+};
   const handleChange = (e) => {
     setTeacher({
       ...teacher,
@@ -25,41 +30,67 @@ const AddTeacher = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(teacher);
-  };
+  e.preventDefault();
+
+  console.log("Teacher Saved:", teacher);
+
+  alert("Teacher added successfully!");
+navigate("/teachers");
+  setTeacher(initialTeacher);
+};
+
+const handleImageChange = (e) => {
+  const file = e.target.files[0];
+
+  if (file) {
+    setTeacher((prev) => ({
+      ...prev,
+      image: URL.createObjectURL(file),
+    }));
+  }
+};
+
+
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-gray-100 py-6 px-4">
 
-      {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-800">
+      
+
+      {/* Form Card */}
+      <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md p-6">
+
+        <form onSubmit={handleSubmit}>
+          <h1 className="text-3xl font-bold text-gray-800">
           Add Teacher
         </h1>
         <p className="text-gray-500 mt-1">
           Fill in the teacher information below.
         </p>
-      </div>
-
-      {/* Form Card */}
-      <div className="bg-white rounded-2xl shadow-lg p-8">
-
-        <form onSubmit={handleSubmit}>
 
           {/* Profile */}
-          <div className="flex flex-col items-center mb-10">
+          <div className="flex flex-col items-center mb-6">
 
-            <div className="w-28 h-28 rounded-full bg-blue-100 border-4 border-blue-500 flex items-center justify-center text-4xl">
+            <div className="w-20 h-20 rounded-full bg-blue-100 border-2 border-blue-500 flex items-center justify-center text-3xl">
               👤
             </div>
 
-            <button
-              type="button"
-              className="mt-4 px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-            >
-              Upload Photo
-            </button>
+            <input
+  type="file"
+  id="teacherImage"
+  accept="image/*"
+  ref={fileInputRef}
+  hidden
+  required
+  onChange={handleImageChange}
+/>
+
+<label
+  htmlFor="teacherImage"
+  className="mt-4 px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 cursor-pointer"
+>
+  Upload Photo
+</label>
 
           </div>
 
@@ -71,18 +102,13 @@ const AddTeacher = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
             <Input
-              label="First Name"
-              name="firstName"
-              value={teacher.firstName}
+              label="Name"
+              name="Name"
+              value={teacher.name}
               onChange={handleChange}
             />
 
-            <Input
-              label="Last Name"
-              name="lastName"
-              value={teacher.lastName}
-              onChange={handleChange}
-            />
+            
 
             <Input
               label="Teacher ID"
@@ -91,32 +117,16 @@ const AddTeacher = () => {
               onChange={handleChange}
             />
 
-            <div>
-              <label className="block mb-2 font-medium">
-                Gender
-              </label>
-
-              <select
-                name="gender"
-                value={teacher.gender}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
-              >
-                <option value="">Select Gender</option>
-                <option>Male</option>
-                <option>Female</option>
-                <option>Other</option>
-              </select>
-            </div>
+            
 
           </div>
 
           {/* Contact */}
-          <h2 className="text-xl font-semibold text-gray-700 border-b pb-2 mt-10 mb-6">
+          <h2 className="text-xl font-semibold text-gray-700 border-b pb-2 mt-6 mb-4">
             Contact Information
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
             <Input
               label="Email"
@@ -156,50 +166,10 @@ const AddTeacher = () => {
               onChange={handleChange}
             />
 
-            <Input
-              label="Qualification"
-              name="qualification"
-              value={teacher.qualification}
-              onChange={handleChange}
-            />
+            
+            
 
-            <Input
-              label="Experience"
-              name="experience"
-              placeholder="e.g. 5 Years"
-              value={teacher.experience}
-              onChange={handleChange}
-            />
-
-            <div>
-              <label className="block mb-2 font-medium">
-                Joining Date
-              </label>
-
-              <input
-                type="date"
-                name="joiningDate"
-                value={teacher.joiningDate}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
-              />
-            </div>
-
-            <div>
-              <label className="block mb-2 font-medium">
-                Status
-              </label>
-
-              <select
-                name="status"
-                value={teacher.status}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
-              >
-                <option>Active</option>
-                <option>Inactive</option>
-              </select>
-            </div>
+            
 
           </div>
 
@@ -209,27 +179,29 @@ const AddTeacher = () => {
           </h2>
 
           <textarea
-            rows="4"
+            rows="2"
             name="address"
             value={teacher.address}
             onChange={handleChange}
+            required
             placeholder="Enter Address"
-            className="w-full border rounded-lg px-4 py-3 resize-none focus:ring-2 focus:ring-blue-500 outline-none"
+            className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
           />
 
           {/* Buttons */}
           <div className="flex justify-end gap-4 mt-10">
 
             <button
-              type="reset"
-              className="px-6 py-3 border rounded-lg hover:bg-gray-100"
-            >
-              Cancel
-            </button>
+  type="button"
+  onClick={handleCancel}
+  className="px-5 py-2 border rounded-lg hover:bg-gray-100"
+>
+  Cancel
+</button>
 
             <button
               type="submit"
-              className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold shadow"
+              className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow"
             >
               Save Teacher
             </button>
@@ -250,10 +222,11 @@ const Input = ({
   value,
   onChange,
   placeholder,
+  required = true,
 }) => (
   <div>
     <label className="block mb-2 font-medium">
-      {label}
+      {label} <span className="text-red-500">*</span>
     </label>
 
     <input
@@ -261,10 +234,13 @@ const Input = ({
       name={name}
       value={value}
       onChange={onChange}
-      placeholder={placeholder ||` Enter ${label}`}
-      className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
+      placeholder={placeholder || `Enter ${label}`}
+      required={required}
+      className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
     />
   </div>
 );
+  
 
-export default AddTeacher;
+
+export default AddTeacher
