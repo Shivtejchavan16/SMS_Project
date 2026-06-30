@@ -25,6 +25,7 @@ import StudentList from "../pages/students/StudentList";
 import AddStudent from "../pages/students/AddStudent";
 import EditStudent from "../pages/students/EditStudent";
 import StudentDetails from "../pages/students/StudentDetails";
+import User from "../pages/students/User";
 
 // Teachers
 import TeacherList from "../pages/teachers/TeacherList";
@@ -109,6 +110,7 @@ const AppRoutes = () => {
           path="students/:id"
           element={<StudentDetails />}
         />
+       <Route path="users" element={<User />} />
 
 
         {/* Teachers */}
