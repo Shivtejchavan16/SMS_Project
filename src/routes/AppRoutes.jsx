@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
+
 // Layouts
 import PublicLayout from "../layout/PublicLayout";
 import AuthLayout from "../layout/AuthLayout";
