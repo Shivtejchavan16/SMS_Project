@@ -50,6 +50,7 @@ import ReportCard from "../pages/results/ReportCard";
 // Timetable
 import WeeklyTimetable from "../pages/timetable/WeeklyTimetable";
 import TeacherSchedule from "../pages/timetable/TeacherSchedule";
+import ClassroomAllocation from "../pages/timetable/ClassroomAllocation";
 
 
 // Announcements
@@ -180,6 +181,11 @@ const AppRoutes = () => {
         <Route
           path="timetable/teacher-schedule"
           element={<TeacherSchedule />}
+        />
+
+        <Route
+          path="timetable/classroom-allocation"
+          element={<ClassroomAllocation />}
         />
 
 
