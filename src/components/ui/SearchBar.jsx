@@ -1,11 +1,13 @@
-import React from 'react'
-
-const SearchBar = () => {
+const SearchBar = ({ value, onChange }) => {
   return (
-    <div>
-       SearchBar 
-    </div>
-  )
-}
+    <input
+      type="text"
+      placeholder="Search..."
+      value={value}
+      onChange={onChange}
+      className="w-full border p-2 rounded"
+    />
+  );
+};
 
-export default SearchBar
+export default SearchBar;
